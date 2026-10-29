@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Beranda - Sistem Informasi Jadwal Operasi RS Sehat Sentosa</title>
+  <link rel="icon" type="image/svg+xml" href="/img/logo.svg">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="container navbar-inner">
+      <a href="/" class="brand">
+        <img src="/img/logo.svg" alt="Logo RS Sehat Sentosa" class="brand-logo">
+        <div class="brand-text">
+          <span class="brand-name">RS Sehat Sentosa</span>
+          <span class="brand-tagline">Sistem Informasi Jadwal Operasi</span>
+        </div>
+      </a>
+      <ul class="nav-links">
+        <li><a href="/" class="active">Beranda</a></li>
+        <li><a href="/jadwal.html">Daftar Jadwal</a></li>
+        <li><a href="/cek-jadwal.html">Cek Jadwal Saya</a></li>
+        <li><a href="/scan.html">Scan QR Code</a></li>
+        <li><a href="/admin-login.html" class="btn btn-sm btn-outline">Login Admin</a></li>
+      </ul>
+      <button class="nav-toggle" id="navToggle" aria-label="Buka menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- HERO SECTION -->
+  <header class="hero">
+    <div class="container hero-inner">
+      <div class="hero-content">
+        <span class="hero-badge">Prototipe Akademik</span>
+        <h1>Sistem Informasi Jadwal Operasi Pasien<br><span class="text-accent">Berbasis Web dengan QR Code</span></h1>
+        <p class="hero-desc">
+          Website ini membantu pasien <strong>RS Sehat Sentosa</strong> melihat informasi jadwal operasi
+          dengan cepat dan aman. Pasien dapat memeriksa jadwal operasinya sendiri menggunakan kode akses,
+          memindai QR Code untuk membuka halaman jadwal, dan admin dapat mengelola seluruh jadwal operasi.
+        </p>
+        <div class="hero-actions">
+          <a href="/jadwal.html" class="btn btn-primary btn-lg">
+            <span class="icon">&#128197;</span> Lihat Jadwal Operasi
+          </a>
+          <a href="/cek-jadwal.html" class="btn btn-secondary btn-lg">
+            <span class="icon">&#128269;</span> Cek Jadwal Saya
+          </a>
+          <a href="/scan.html" class="btn btn-outline btn-lg">
+            <span class="icon">&#128247;</span> Scan QR Code
+          </a>
+        </div>
+      </div>
+      <div class="hero-card">
+        <div class="hero-card-header">
+          <span class="hero-card-icon">&#128137;</span>
+          <div>
+            <h3>RS Sehat Sentosa</h3>
+            <p>Unit Pelayanan Operasi</p>
+          </div>
+        </div>
+        <div class="hero-card-stats">
+          <div class="hero-stat">
+            <span class="hero-stat-value" id="statTotalJadwal">-</span>
+            <span class="hero-stat-label">Total Jadwal</span>
+          </div>
+          <div class="hero-stat">
+            <span class="hero-stat-value" id="statHariIni">-</span>
+            <span class="hero-stat-label">Operasi Hari Ini</span>
+          </div>
+        </div>
+        <p class="hero-card-foot">
+          <em>* Seluruh data bersifat fiktif untuk keperluan demonstrasi akademik.</em>
+        </p>
+      </div>
+    </div>
+  </header>
+
+  <!-- PETUNJUK PENGGUNAAN -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <h2>Petunjuk Penggunaan Website</h2>
+        <p>Ikuti langkah-langkah berikut untuk menggunakan sistem ini</p>
+      </div>
+      <div class="grid grid-4">
+        <div class="card guide-card">
+          <div class="guide-number">1</div>
+          <div class="guide-icon">&#128194;</div>
+          <h3>Lihat Jadwal Operasi</h3>
+          <p>Buka halaman <a href="/jadwal.html">Daftar Jadwal</a> untuk melihat jadwal operasi yang aman dipublikasikan. Anda dapat memfilter berdasarkan tanggal dan ruang operasi.</p>
+        </div>
+        <div class="card guide-card">
+          <div class="guide-number">2</div>
+          <div class="guide-icon">&#128269;</div>
+          <h3>Cek Jadwal Pribadi</h3>
+          <p>Buka halaman <a href="/cek-jadwal.html">Cek Jadwal Saya</a>, masukkan kode akses pasien (contoh: <code>PAS-2024-001</code>) untuk melihat jadwal operasi Anda sendiri.</p>
+        </div>
+        <div class="card guide-card">
+          <div class="guide-number">3</div>
+          <div class="guide-icon">&#128247;</div>
+          <h3>Scan QR Code</h3>
+          <p>Buka halaman <a href="/scan.html">Scan QR Code</a> dan arahkan kamera HP ke QR Code yang dipasang di rumah sakit untuk langsung menuju halaman jadwal.</p>
+        </div>
+        <div class="card guide-card">
+          <div class="guide-number">4</div>
+          <div class="guide-icon">&#128272;</div>
+          <h3>Login Admin</h3>
+          <p>Untuk petugas rumah sakit, login melalui halaman <a href="/admin-login.html">Admin</a> menggunakan username <code>admin</code> dan password <code>admin123</code>.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FITUR UTAMA -->
+  <section class="section section-alt">
+    <div class="container">
+      <div class="section-header">
+        <h2>Fitur Utama Sistem</h2>
+        <p>Beberapa fitur yang tersedia dalam sistem informasi ini</p>
+      </div>
+      <div class="grid grid-3">
+        <div class="card feature-card">
+          <div class="feature-icon">&#128202;</div>
+          <h3>Dashboard Admin</h3>
+          <p>Statistik real-time jumlah jadwal operasi, jadwal hari ini, jadwal mendatang, dan jadwal yang ditunda. Memudahkan petugas memantau operasional.</p>
+        </div>
+        <div class="card feature-card">
+          <div class="feature-icon">&#128197;</div>
+          <h3>Kelola Jadwal</h3>
+          <p>Admin dapat menambah, mengubah, menghapus, dan mengubah status jadwal operasi. Sistem mencegah bentrok ruang operasi secara otomatis.</p>
+        </div>
+        <div class="card feature-card">
+          <div class="feature-icon">&#128274;</div>
+          <h3>Akses Aman</h3>
+          <p>Pasien hanya bisa melihat jadwalnya sendiri menggunakan kode akses rahasia. Data sensitif tidak ditampilkan di halaman publik.</p>
+        </div>
+        <div class="card feature-card">
+          <div class="feature-icon">&#128274;</div>
+          <h3>Integrasi QR Code</h3>
+          <p>QR Code berisi URL halaman jadwal. Pasien dapat memindai dengan kamera HP untuk langsung membuka halaman jadwal operasi.</p>
+        </div>
+        <div class="card feature-card">
+          <div class="feature-icon">&#128196;</div>
+          <h3>Laporan</h3>
+          <p>Admin dapat mencetak laporan jadwal operasi atau mengunduh dalam format CSV untuk diolah lebih lanjut di Excel.</p>
+        </div>
+        <div class="card feature-card">
+          <div class="feature-icon">&#128274;</div>
+          <h3>Keamanan Dasar</h3>
+          <p>Password admin disimpan dalam bentuk hash (bukan teks biasa). Halaman admin dilindungi session. Validasi input diterapkan di setiap form.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DISCLAIMER -->
+  <section class="section">
+    <div class="container">
+      <div class="alert alert-warning">
+        <strong>&#9888; Peringatan Penting:</strong>
+        Website ini merupakan <strong>prototipe akademik</strong> yang dibuat untuk keperluan UAS mata kuliah
+        Rekayasa Perangkat Lunak. Seluruh data pasien dan jadwal operasi yang ditampilkan adalah
+        <strong>data fiktif</strong>. Sistem ini <strong>belum lulus uji keamanan</strong> dan
+        <strong>tidak boleh digunakan</strong> untuk menyimpan data pasien nyata atau untuk pelayanan klinis.
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <img src="/img/logo.svg" alt="Logo" class="footer-logo">
+        <div>
+          <strong>RS Sehat Sentosa</strong>
+          <p>Prototipe Akademik - UAS Rekayasa Perangkat Lunak</p>
+        </div>
+      </div>
+      <div class="footer-meta">
+        <p>&copy; 2024 Sistem Informasi Jadwal Operasi Pasien</p>
+        <p>Mahasiswa S1 Teknik Biomedis</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/js/common.js"></script>
+  <script src="/js/beranda.js"></script>
+</body>
+</html>

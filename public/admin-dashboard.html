@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard Admin - RS Sehat Sentosa</title>
+  <link rel="icon" type="image/svg+xml" href="/img/logo.svg">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="admin-body">
+  <div class="admin-layout">
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <img src="/img/logo.svg" alt="Logo" class="sidebar-logo">
+        <div>
+          <strong>RS Sehat Sentosa</strong>
+          <span>Panel Admin</span>
+        </div>
+      </div>
+      <nav class="sidebar-nav">
+        <a href="#dashboard" class="sidebar-link active" data-section="dashboard">
+          <span class="icon">&#128202;</span> Dashboard
+        </a>
+        <a href="#kelola" class="sidebar-link" data-section="kelola">
+          <span class="icon">&#128197;</span> Kelola Jadwal
+        </a>
+        <a href="#tambah" class="sidebar-link" data-section="tambah">
+          <span class="icon">&#10133;</span> Tambah Jadwal
+        </a>
+        <a href="#qr" class="sidebar-link" data-section="qr">
+          <span class="icon">&#128247;</span> QR Code
+        </a>
+        <a href="#laporan" class="sidebar-link" data-section="laporan">
+          <span class="icon">&#128196;</span> Laporan
+        </a>
+        <a href="#pengaturan" class="sidebar-link" data-section="pengaturan">
+          <span class="icon">&#9881;</span> Pengaturan
+        </a>
+      </nav>
+      <div class="sidebar-footer">
+        <div class="admin-info">
+          <strong id="adminName">Admin</strong>
+          <span id="adminUsername">admin</span>
+        </div>
+        <button id="btnLogout" class="btn btn-danger btn-sm btn-block">
+          <span class="icon">&#8634;</span> Logout
+        </button>
+        <a href="/" class="sidebar-home">&larr; Kembali ke Beranda</a>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="admin-main">
+      <header class="admin-topbar">
+        <button class="sidebar-toggle" id="sidebarToggle" aria-label="Buka menu">
+          <span></span><span></span><span></span>
+        </button>
+        <h2 id="pageTitle">Dashboard</h2>
+        <div class="topbar-right">
+          <span class="topbar-date" id="todayDate"></span>
+        </div>
+      </header>
+
+      <div class="admin-content">
+        <!-- ALERT -->
+        <div id="globalAlert"></div>
+
+        <!-- ============= SECTION: DASHBOARD ============= -->
+        <section id="section-dashboard" class="admin-section active">
+          <h3 class="section-title">Ringkasan Statistik</h3>
+          <div class="grid grid-4">
+            <div class="card stat-card stat-blue">
+              <div class="stat-icon">&#128203;</div>
+              <div class="stat-info">
+                <span class="stat-value" id="statTotal">-</span>
+                <span class="stat-label">Total Jadwal</span>
+              </div>
+            </div>
+            <div class="card stat-card stat-green">
+              <div class="stat-icon">&#128197;</div>
+              <div class="stat-info">
+                <span class="stat-value" id="statHariIni">-</span>
+                <span class="stat-label">Operasi Hari Ini</span>
+              </div>
+            </div>
+            <div class="card stat-card stat-yellow">
+              <div class="stat-icon">&#128205;</div>
+              <div class="stat-info">
+                <span class="stat-value" id="statMendatang">-</span>
+                <span class="stat-label">Jadwal Mendatang</span>
+              </div>
+            </div>
+            <div class="card stat-card stat-red">
+              <div class="stat-icon">&#9203;</div>
+              <div class="stat-info">
+                <span class="stat-value" id="statDitunda">-</span>
+                <span class="stat-label">Jadwal Ditunda</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="card" style="margin-top: 1.5rem;">
+            <div class="card-header">
+              <h3 class="card-title">
+                <span class="icon">&#128197;</span> Jadwal Operasi Hari Ini
+              </h3>
+              <a href="#kelola" class="btn btn-sm btn-outline" data-section-link="kelola">Lihat Semua</a>
+            </div>
+            <div class="table-responsive">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Waktu</th>
+                    <th>Ruang</th>
+                    <th>Jenis Operasi</th>
+                    <th>Pasien</th>
+                    <th>Dokter</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody id="todayTableBody">
+                  <tr><td colspan="6" class="text-center text-muted">Memuat data...</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============= SECTION: KELOLA JADWAL ============= -->
+        <section id="section-kelola" class="admin-section">
+          <h3 class="section-title">Kelola Jadwal Operasi</h3>
+
+          <div class="card filter-card">
+            <div class="filter-grid">
+              <div class="form-group">
+                <label for="adminFilterTanggal">Tanggal</label>
+                <input type="date" id="adminFilterTanggal" class="form-input">
+              </div>
+              <div class="form-group">
+                <label for="adminFilterStatus">Status</label>
+                <select id="adminFilterStatus" class="form-input">
+                  <option value="semua">Semua Status</option>
+                  <option value="Terjadwal">Terjadwal</option>
+                  <option value="Ditunda">Ditunda</option>
+                  <option value="Selesai">Selesai</option>
+                  <option value="Dibatalkan">Dibatalkan</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="adminFilterSearch">Pencarian</label>
+                <input type="text" id="adminFilterSearch" class="form-input" placeholder="Cari pasien / dokter / jenis...">
+              </div>
+              <div class="form-group form-actions-vertical">
+                <button id="adminBtnFilter" class="btn btn-primary">
+                  <span class="icon">&#128269;</span> Filter
+                </button>
+                <button id="adminBtnReset" class="btn btn-secondary">
+                  <span class="icon">&#8634;</span> Reset
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">
+                <span class="icon">&#128203;</span> Daftar Seluruh Jadwal
+                <span class="badge badge-info" id="adminResultCount">0</span>
+              </h3>
+              <button class="btn btn-sm btn-primary" data-section-link="tambah">
+                <span class="icon">&#10133;</span> Tambah Jadwal
+              </button>
+            </div>
+            <div class="table-responsive">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Tanggal</th>
+                    <th>Waktu</th>
+                    <th>Ruang</th>
+                    <th>Jenis Operasi</th>
+                    <th>Pasien</th>
+                    <th>Dokter</th>
+                    <th>Status</th>
+                    <th>Aksi</th>
+                  </tr>
+                </thead>
+                <tbody id="adminJadwalBody">
+                  <tr><td colspan="9" class="text-center text-muted">Memuat data...</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============= SECTION: TAMBAH/EDIT JADWAL ============= -->
+        <section id="section-tambah" class="admin-section">
+          <h3 class="section-title" id="formTitle">Tambah Jadwal Operasi Baru</h3>
+
+          <div class="card">
+            <form id="formJadwal">
+              <input type="hidden" id="jadwalId">
+
+              <div class="grid grid-2">
+                <div class="form-group">
+                  <label for="kodeAkses">Kode Akses Pasien <span class="required">*</span></label>
+                  <input type="text" id="kodeAkses" class="form-input" placeholder="Contoh: PAS-2024-001" required list="kodeAksesList">
+                  <datalist id="kodeAksesList"></datalist>
+                  <small class="form-help">Masukkan kode akses pasien yang sudah terdaftar.</small>
+                </div>
+                <div class="form-group">
+                  <label for="tanggalOperasi">Tanggal Operasi <span class="required">*</span></label>
+                  <input type="date" id="tanggalOperasi" class="form-input" required>
+                </div>
+              </div>
+
+              <div class="grid grid-2">
+                <div class="form-group">
+                  <label for="waktuMulai">Waktu Mulai <span class="required">*</span></label>
+                  <input type="time" id="waktuMulai" class="form-input" required>
+                </div>
+                <div class="form-group">
+                  <label for="waktuSelesai">Waktu Selesai <span class="required">*</span></label>
+                  <input type="time" id="waktuSelesai" class="form-input" required>
+                </div>
+              </div>
+
+              <div class="grid grid-2">
+                <div class="form-group">
+                  <label for="ruangOperasi">Ruang Operasi <span class="required">*</span></label>
+                  <select id="ruangOperasi" class="form-input" required>
+                    <option value="">-- Pilih Ruang --</option>
+                    <option value="Ruang Operasi 1 (Cendana)">Ruang Operasi 1 (Cendana)</option>
+                    <option value="Ruang Operasi 2 (Mawar)">Ruang Operasi 2 (Mawar)</option>
+                    <option value="Ruang Operasi 3 (Melati)">Ruang Operasi 3 (Melati)</option>
+                    <option value="Ruang Operasi 4 (Anggrek)">Ruang Operasi 4 (Anggrek)</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="status">Status Jadwal</label>
+                  <select id="status" class="form-input">
+                    <option value="Terjadwal">Terjadwal</option>
+                    <option value="Ditunda">Ditunda</option>
+                    <option value="Selesai">Selesai</option>
+                    <option value="Dibatalkan">Dibatalkan</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="grid grid-2">
+                <div class="form-group">
+                  <label for="jenisOperasi">Jenis Operasi <span class="required">*</span></label>
+                  <input type="text" id="jenisOperasi" class="form-input" placeholder="Contoh: Apendektomi" required>
+                </div>
+                <div class="form-group">
+                  <label for="dokterBedah">Dokter Bedah <span class="required">*</span></label>
+                  <input type="text" id="dokterBedah" class="form-input" placeholder="Contoh: dr. Andi Pratama, Sp.B" required>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="catatan">Catatan Administratif (opsional)</label>
+                <textarea id="catatan" class="form-input" rows="3" placeholder="Catatan tambahan (tidak sensitif)"></textarea>
+              </div>
+
+              <div class="form-actions">
+                <button type="submit" class="btn btn-primary btn-lg" id="btnSimpan">
+                  <span class="icon">&#128190;</span> Simpan Jadwal
+                </button>
+                <button type="button" class="btn btn-secondary" id="btnBatal">
+                  <span class="icon">&#8634;</span> Batal
+                </button>
+              </div>
+            </form>
+          </div>
+        </section>
+
+        <!-- ============= SECTION: QR CODE ============= -->
+        <section id="section-qr" class="admin-section">
+          <h3 class="section-title">Generate &amp; Download QR Code</h3>
+
+          <div class="grid grid-2-1">
+            <div class="card">
+              <h3 class="card-title">
+                <span class="icon">&#128247;</span> Buat QR Code
+              </h3>
+              <p class="card-desc">
+                QR Code berisi URL halaman website. Pilih halaman target, lalu klik "Generate".
+                Setelah QR Code muncul, Anda dapat mengunduhnya sebagai gambar PNG.
+              </p>
+
+              <div class="form-group">
+                <label for="qrTarget">Halaman Target QR Code</label>
+                <select id="qrTarget" class="form-input">
+                  <option value="jadwal">Halaman Daftar Jadwal Operasi</option>
+                  <option value="beranda">Halaman Beranda</option>
+                  <option value="scan">Halaman Scan QR Code</option>
+                </select>
+              </div>
+
+              <div class="form-actions">
+                <button id="btnGenerateQr" class="btn btn-primary">
+                  <span class="icon">&#128247;</span> Generate QR Code
+                </button>
+                <button id="btnDownloadQr" class="btn btn-success" disabled>
+                  <span class="icon">&#11015;</span> Download PNG
+                </button>
+              </div>
+
+              <div id="qrInfo" class="alert alert-info" style="display: none; margin-top: 1rem;"></div>
+            </div>
+
+            <div class="card">
+              <h3 class="card-title">
+                <span class="icon">&#128247;</span> Preview QR Code
+              </h3>
+              <div id="qrPreview" class="qr-preview">
+                <p class="text-muted text-center">
+                  Klik "Generate QR Code" untuk membuat QR Code.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============= SECTION: LAPORAN ============= -->
+        <section id="section-laporan" class="admin-section">
+          <h3 class="section-title">Laporan Jadwal Operasi</h3>
+
+          <div class="card">
+            <h3 class="card-title">
+              <span class="icon">&#128196;</span> Filter Laporan
+            </h3>
+            <div class="filter-grid">
+              <div class="form-group">
+                <label for="laporanDari">Dari Tanggal</label>
+                <input type="date" id="laporanDari" class="form-input">
+              </div>
+              <div class="form-group">
+                <label for="laporanSampai">Sampai Tanggal</label>
+                <input type="date" id="laporanSampai" class="form-input">
+              </div>
+              <div class="form-group">
+                <label for="laporanStatus">Status</label>
+                <select id="laporanStatus" class="form-input">
+                  <option value="semua">Semua Status</option>
+                  <option value="Terjadwal">Terjadwal</option>
+                  <option value="Ditunda">Ditunda</option>
+                  <option value="Selesai">Selesai</option>
+                  <option value="Dibatalkan">Dibatalkan</option>
+                </select>
+              </div>
+              <div class="form-group form-actions-vertical">
+                <button id="btnLoadLaporan" class="btn btn-primary">
+                  <span class="icon">&#128269;</span> Tampilkan
+                </button>
+              </div>
+            </div>
+            <div class="form-actions" style="margin-top: 1rem;">
+              <button id="btnPrintLaporan" class="btn btn-secondary">
+                <span class="icon">&#128424;</span> Cetak Laporan
+              </button>
+              <button id="btnDownloadCsv" class="btn btn-success">
+                <span class="icon">&#11015;</span> Download CSV
+              </button>
+            </div>
+          </div>
+
+          <div class="card" style="margin-top: 1.5rem;">
+            <div class="card-header">
+              <h3 class="card-title">
+                <span class="icon">&#128203;</span> Data Laporan
+                <span class="badge badge-info" id="laporanCount">0</span>
+              </h3>
+            </div>
+            <div class="table-responsive">
+              <table class="table" id="laporanTable">
+                <thead>
+                  <tr>
+                    <th>Tanggal</th>
+                    <th>Waktu</th>
+                    <th>Ruang</th>
+                    <th>Jenis Operasi</th>
+                    <th>Dokter</th>
+                    <th>Pasien</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody id="laporanBody">
+                  <tr><td colspan="7" class="text-center text-muted">Klik "Tampilkan" untuk memuat laporan.</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============= SECTION: PENGATURAN ============= -->
+        <section id="section-pengaturan" class="admin-section">
+          <h3 class="section-title">Pengaturan Aplikasi</h3>
+
+          <div class="card">
+            <h3 class="card-title">
+              <span class="icon">&#127760;</span> URL Website (untuk QR Code)
+            </h3>
+            <p class="card-desc">
+              URL ini digunakan untuk membuat QR Code. Saat di-scan, QR Code akan membuka URL ini.
+              <br>
+              <strong>Saat pengembangan:</strong> gunakan <code>http://localhost:3000</code>.
+              <br>
+              <strong>Saat sudah di-hosting:</strong> ganti dengan URL publik, mis. <code>https://jadwal-rs.example.com</code>.
+            </p>
+
+            <form id="formPengaturan">
+              <div class="form-group">
+                <label for="siteUrl">URL Website</label>
+                <input type="url" id="siteUrl" class="form-input" placeholder="http://localhost:3000" required>
+              </div>
+              <div class="form-actions">
+                <button type="submit" class="btn btn-primary">
+                  <span class="icon">&#128190;</span> Simpan Pengaturan
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <div class="card" style="margin-top: 1.5rem;">
+            <h3 class="card-title">
+              <span class="icon">&#9888;</span> Peringatan Keamanan
+            </h3>
+            <div class="alert alert-warning">
+              <p>Sistem ini merupakan <strong>prototipe akademik</strong> dengan keterbatasan keamanan:</p>
+              <ul style="margin: 0.5rem 0 0 1.5rem;">
+                <li>Password demo menggunakan password lemah (<code>admin123</code>).</li>
+                <li>Session secret masih hardcoded di source code.</li>
+                <li>Belum menerapkan HTTPS secara default (perlu reverse proxy).</li>
+                <li>Belum ada audit log untuk aktivitas admin.</li>
+                <li>Rate limiting belum diterapkan pada endpoint login.</li>
+              </ul>
+              <p style="margin-top: 0.5rem;">
+                <strong>Jangan gunakan</strong> prototipe ini untuk menyimpan data pasien nyata
+                tanpa pengujian keamanan lebih lanjut oleh profesional.
+              </p>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </main>
+  </div>
+
+  <!-- MODAL KONFIRMASI HAPUS -->
+  <div id="modalHapus" class="modal" style="display: none;">
+    <div class="modal-overlay"></div>
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>&#9888; Konfirmasi Hapus</h3>
+      </div>
+      <div class="modal-body">
+        <p>Apakah Anda yakin ingin menghapus jadwal operasi ini?</p>
+        <div id="modalHapusDetail" class="modal-detail"></div>
+        <p class="text-danger"><strong>Tindakan ini tidak dapat dibatalkan.</strong></p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" id="btnBatalHapus">Batal</button>
+        <button class="btn btn-danger" id="btnKonfirmasiHapus">Ya, Hapus</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="/js/common.js"></script>
+  <script src="/js/admin-dashboard.js"></script>
+</body>
+</html>

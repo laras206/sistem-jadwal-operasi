@@ -1,0 +1,23 @@
+# Folder database SQLite
+# File database akan otomatis dibuat saat server pertama kali dijalankan
+*.db
+*.db-journal
+
+# Folder download (untuk QR code dan laporan yang dihasilkan)
+download/*
+!download/.gitkeep
+
+# Dependensi node
+node_modules/
+
+# Log
+*.log
+npm-debug.log*
+
+# Sistem operasi
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/

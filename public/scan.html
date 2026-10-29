@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scan QR Code - RS Sehat Sentosa</title>
+  <link rel="icon" type="image/svg+xml" href="/img/logo.svg">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="container navbar-inner">
+      <a href="/" class="brand">
+        <img src="/img/logo.svg" alt="Logo RS Sehat Sentosa" class="brand-logo">
+        <div class="brand-text">
+          <span class="brand-name">RS Sehat Sentosa</span>
+          <span class="brand-tagline">Sistem Informasi Jadwal Operasi</span>
+        </div>
+      </a>
+      <ul class="nav-links">
+        <li><a href="/">Beranda</a></li>
+        <li><a href="/jadwal.html">Daftar Jadwal</a></li>
+        <li><a href="/cek-jadwal.html">Cek Jadwal Saya</a></li>
+        <li><a href="/scan.html" class="active">Scan QR Code</a></li>
+        <li><a href="/admin-login.html" class="btn btn-sm btn-outline">Login Admin</a></li>
+      </ul>
+      <button class="nav-toggle" id="navToggle" aria-label="Buka menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <header class="page-header">
+    <div class="container">
+      <h1>Scan QR Code</h1>
+      <p>Arahkan kamera ke QR Code yang terpasang di area rumah sakit untuk membuka halaman jadwal</p>
+    </div>
+  </header>
+
+  <main class="container main-content">
+    <div class="grid grid-2-1">
+      <!-- AREA SCANNER -->
+      <section class="card">
+        <h3 class="card-title">
+          <span class="icon">&#128247;</span> Pindai QR Code
+        </h3>
+        <p class="card-desc">
+          Klik tombol <strong>"Mulai Kamera"</strong> di bawah, lalu arahkan kamera HP atau laptop
+          ke QR Code yang ingin Anda pindai.
+        </p>
+
+        <div class="scanner-container">
+          <div id="qr-reader" class="qr-reader"></div>
+          <div id="qr-reader-status" class="qr-reader-status">
+            Kamera belum diaktifkan.
+          </div>
+        </div>
+
+        <div class="form-actions" style="margin-top: 1rem;">
+          <button id="btnStartScan" class="btn btn-primary btn-lg">
+            <span class="icon">&#128247;</span> Mulai Kamera
+          </button>
+          <button id="btnStopScan" class="btn btn-secondary" disabled>
+            <span class="icon">&#9724;</span> Stop
+          </button>
+        </div>
+
+        <div id="scanResult" class="scan-result" style="display: none;"></div>
+      </section>
+
+      <!-- INFO TENTANG QR CODE -->
+      <aside class="card card-info">
+        <h3 class="card-title">
+          <span class="icon">&#8505;</span> Tentang QR Code
+        </h3>
+        <p style="margin-bottom: 1rem;">
+          QR Code di sistem ini <strong>berisi URL</strong> halaman website, bukan teks biasa.
+          Setelah dipindai, browser HP akan otomatis membuka halaman jadwal operasi.
+        </p>
+
+        <h4>Cara Menggunakan:</h4>
+        <ol class="info-list numbered">
+          <li>Klik tombol <strong>"Mulai Kamera"</strong>.</li>
+          <li>Izinkan akses kamera saat browser meminta.</li>
+          <li>Arahkan kamera ke QR Code pada jarak 10-20 cm.</li>
+          <li>Tunggu hingga QR Code terdeteksi otomatis.</li>
+          <li>Browser akan otomatis mengarahkan ke halaman yang dituju.</li>
+        </ol>
+
+        <h4>Alternatif:</h4>
+        <p style="margin-bottom: 0.5rem;">
+          Jika kamera tidak berfungsi, Anda juga bisa memindai QR Code menggunakan:
+        </p>
+        <ul class="info-list">
+          <li>Aplikasi <strong>Kamera bawaan HP</strong> (sebagian besar HP modern mendukung).</li>
+          <li>Aplikasi pemindai QR pihak ketiga dari Play Store / App Store.</li>
+        </ul>
+
+        <div class="alert alert-warning" style="margin-top: 1rem;">
+          <strong>&#9888; Catatan:</strong>
+          Kamera memerlukan izin browser. Pastikan Anda mengakses halaman ini via <code>https://</code>
+          atau <code>http://localhost</code>. Jika diakses dari HP, gunakan IP laptop
+          (mis. <code>http://192.168.x.x:3000</code>) pada WiFi yang sama.
+        </div>
+      </aside>
+    </div>
+
+    <!-- DEMO QR CODE -->
+    <section class="card" style="margin-top: 2rem;">
+      <h3 class="card-title">
+        <span class="icon">&#128274;</span> QR Code Demo
+      </h3>
+      <p class="card-desc">
+        Berikut adalah contoh QR Code yang mengarah ke halaman <strong>Daftar Jadwal Operasi</strong>.
+        Anda bisa mencoba memindainya menggunakan kamera HP atau scanner di atas.
+      </p>
+      <div class="qr-demo-container">
+        <div id="demoQrCode" class="qr-demo"></div>
+        <p class="qr-demo-caption">
+          <strong>QR Code ini mengarah ke:</strong><br>
+          <code id="demoQrUrl">...</code>
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <img src="/img/logo.svg" alt="Logo" class="footer-logo">
+        <div>
+          <strong>RS Sehat Sentosa</strong>
+          <p>Prototipe Akademik - UAS Rekayasa Perangkat Lunak</p>
+        </div>
+      </div>
+      <div class="footer-meta">
+        <p>&copy; 2024 Sistem Informasi Jadwal Operasi Pasien</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Library Html5QrcodeScanner untuk pemindaian QR via kamera -->
+  <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
+  <script src="/js/common.js"></script>
+  <script src="/js/scan.js"></script>
+</body>
+</html>

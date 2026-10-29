@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cek Jadwal Saya - RS Sehat Sentosa</title>
+  <link rel="icon" type="image/svg+xml" href="/img/logo.svg">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="container navbar-inner">
+      <a href="/" class="brand">
+        <img src="/img/logo.svg" alt="Logo RS Sehat Sentosa" class="brand-logo">
+        <div class="brand-text">
+          <span class="brand-name">RS Sehat Sentosa</span>
+          <span class="brand-tagline">Sistem Informasi Jadwal Operasi</span>
+        </div>
+      </a>
+      <ul class="nav-links">
+        <li><a href="/">Beranda</a></li>
+        <li><a href="/jadwal.html">Daftar Jadwal</a></li>
+        <li><a href="/cek-jadwal.html" class="active">Cek Jadwal Saya</a></li>
+        <li><a href="/scan.html">Scan QR Code</a></li>
+        <li><a href="/admin-login.html" class="btn btn-sm btn-outline">Login Admin</a></li>
+      </ul>
+      <button class="nav-toggle" id="navToggle" aria-label="Buka menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- HEADER HALAMAN -->
+  <header class="page-header">
+    <div class="container">
+      <h1>Cek Jadwal Operasi Saya</h1>
+      <p>Masukkan kode akses pribadi untuk melihat jadwal operasi Anda</p>
+    </div>
+  </header>
+
+  <main class="container main-content">
+    <div class="grid grid-2-1">
+      <!-- FORM KODE AKSES -->
+      <section class="card">
+        <h3 class="card-title">
+          <span class="icon">&#128272;</span> Masukkan Kode Akses
+        </h3>
+        <p class="card-desc">
+          Kode akses adalah kode rahasia yang diberikan oleh petugas RS kepada pasien.
+          Kode ini berbeda untuk setiap pasien dan hanya boleh diketahui oleh pasien pemiliknya.
+        </p>
+
+        <form id="formCekJadwal">
+          <div class="form-group">
+            <label for="kodeAkses">Kode Akses Pasien</label>
+            <input
+              type="text"
+              id="kodeAkses"
+              class="form-input"
+              placeholder="Contoh: PAS-2024-001"
+              required
+              autocomplete="off"
+            >
+            <small class="form-help">Kode akses terdiri dari format <code>PAS-YYYY-NNN</code>.</small>
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary btn-lg" id="btnCek">
+              <span class="icon">&#128269;</span> Periksa Jadwal
+            </button>
+            <button type="reset" class="btn btn-secondary" id="btnReset">
+              <span class="icon">&#8634;</span> Reset
+            </button>
+          </div>
+        </form>
+
+        <div class="alert alert-info" style="margin-top: 1.5rem;">
+          <strong>&#128161; Kode akses demo:</strong> Untuk mencoba fitur ini, gunakan salah satu kode berikut:
+          <ul style="margin: 0.5rem 0 0 1.5rem;">
+            <li><code>PAS-2024-001</code> - Budi Santoso</li>
+            <li><code>PAS-2024-002</code> - Siti Aminah</li>
+            <li><code>PAS-2024-003</code> - Andi Wijaya</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- INFO KEAMANAN -->
+      <aside class="card card-info">
+        <h3 class="card-title">
+          <span class="icon">&#128274;</span> Informasi Keamanan
+        </h3>
+        <ul class="info-list">
+          <li>Kode akses bersifat <strong>rahasia</strong>. Jangan berikan kepada orang lain.</li>
+          <li>Nomor rekam medis <strong>tidak digunakan</strong> sebagai pengaman tunggal.</li>
+          <li>Anda hanya bisa melihat jadwal <strong>milik Anda sendiri</strong>.</li>
+          <li>Data sensitif (diagnosis, dokter, catatan) hanya ditampilkan setelah kode akses benar.</li>
+          <li>Jika kode akses salah atau hilang, hubungi petugas RS.</li>
+        </ul>
+      </aside>
+    </div>
+
+    <!-- HASIL PENCARIAN -->
+    <section id="hasilSection" class="hasil-section" style="display: none;">
+      <div id="hasilAlert"></div>
+      <div id="hasilContent"></div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <img src="/img/logo.svg" alt="Logo" class="footer-logo">
+        <div>
+          <strong>RS Sehat Sentosa</strong>
+          <p>Prototipe Akademik - UAS Rekayasa Perangkat Lunak</p>
+        </div>
+      </div>
+      <div class="footer-meta">
+        <p>&copy; 2024 Sistem Informasi Jadwal Operasi Pasien</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/js/common.js"></script>
+  <script src="/js/cek-jadwal.js"></script>
+</body>
+</html>

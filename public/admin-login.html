@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Admin - RS Sehat Sentosa</title>
+  <link rel="icon" type="image/svg+xml" href="/img/logo.svg">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="auth-body">
+  <div class="auth-container">
+    <div class="auth-card">
+      <div class="auth-header">
+        <img src="/img/logo.svg" alt="Logo" class="auth-logo">
+        <h1>Login Admin</h1>
+        <p>RS Sehat Sentosa - Sistem Informasi Jadwal Operasi</p>
+      </div>
+
+      <div id="loginAlert"></div>
+
+      <form id="formLogin">
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input
+            type="text"
+            id="username"
+            class="form-input"
+            placeholder="Masukkan username admin"
+            required
+            autocomplete="username"
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input
+            type="password"
+            id="password"
+            class="form-input"
+            placeholder="Masukkan password admin"
+            required
+            autocomplete="current-password"
+          >
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary btn-block btn-lg" id="btnLogin">
+            <span class="icon">&#128272;</span> Masuk
+          </button>
+        </div>
+      </form>
+
+      <div class="auth-footer">
+        <div class="alert alert-info">
+          <strong>&#128161; Kredensial Demo:</strong>
+          <ul style="margin: 0.5rem 0 0 1.5rem;">
+            <li>Username: <code>admin</code></li>
+            <li>Password: <code>admin123</code></li>
+          </ul>
+        </div>
+        <p class="auth-note">
+          <strong>&#9888;</strong> Halaman ini khusus untuk petugas/admin.
+          Pasien dapat mengakses jadwal melalui
+          <a href="/cek-jadwal.html">Cek Jadwal Saya</a>.
+        </p>
+        <a href="/" class="auth-back">&larr; Kembali ke Beranda</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="/js/common.js"></script>
+  <script src="/js/admin-login.js"></script>
+</body>
+</html>

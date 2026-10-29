@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Daftar Jadwal Operasi - RS Sehat Sentosa</title>
+  <link rel="icon" type="image/svg+xml" href="/img/logo.svg">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="container navbar-inner">
+      <a href="/" class="brand">
+        <img src="/img/logo.svg" alt="Logo RS Sehat Sentosa" class="brand-logo">
+        <div class="brand-text">
+          <span class="brand-name">RS Sehat Sentosa</span>
+          <span class="brand-tagline">Sistem Informasi Jadwal Operasi</span>
+        </div>
+      </a>
+      <ul class="nav-links">
+        <li><a href="/">Beranda</a></li>
+        <li><a href="/jadwal.html" class="active">Daftar Jadwal</a></li>
+        <li><a href="/cek-jadwal.html">Cek Jadwal Saya</a></li>
+        <li><a href="/scan.html">Scan QR Code</a></li>
+        <li><a href="/admin-login.html" class="btn btn-sm btn-outline">Login Admin</a></li>
+      </ul>
+      <button class="nav-toggle" id="navToggle" aria-label="Buka menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- HEADER HALAMAN -->
+  <header class="page-header">
+    <div class="container">
+      <h1>Daftar Jadwal Operasi</h1>
+      <p>Informasi jadwal operasi yang aman untuk dipublikasikan. Data pribadi pasien tidak ditampilkan di halaman ini.</p>
+    </div>
+  </header>
+
+  <main class="container main-content">
+    <!-- FILTER DAN PENCARIAN -->
+    <section class="card filter-card">
+      <h3 class="filter-title">&#128269; Filter &amp; Pencarian</h3>
+      <div class="filter-grid">
+        <div class="form-group">
+          <label for="filterTanggal">Tanggal Operasi</label>
+          <input type="date" id="filterTanggal" class="form-input">
+        </div>
+        <div class="form-group">
+          <label for="filterRuang">Ruang Operasi</label>
+          <select id="filterRuang" class="form-input">
+            <option value="semua">Semua Ruang</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="filterSearch">Pencarian</label>
+          <input type="text" id="filterSearch" class="form-input" placeholder="Cari jenis operasi / dokter...">
+        </div>
+        <div class="form-group form-actions-vertical">
+          <button id="btnFilter" class="btn btn-primary">
+            <span class="icon">&#128269;</span> Terapkan
+          </button>
+          <button id="btnReset" class="btn btn-secondary">
+            <span class="icon">&#8634;</span> Reset
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- INFO HASIL -->
+    <div class="result-info">
+      <span id="resultCount">Memuat data...</span>
+    </div>
+
+    <!-- TABEL JADWAL -->
+    <section class="card">
+      <div class="table-responsive">
+        <table class="table" id="jadwalTable">
+          <thead>
+            <tr>
+              <th>Tanggal</th>
+              <th>Waktu</th>
+              <th>Ruang Operasi</th>
+              <th>Jenis Operasi</th>
+              <th>Dokter Bedah</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="jadwalBody">
+            <tr>
+              <td colspan="6" class="text-center text-muted">Memuat data jadwal...</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- INFO PRIVASI -->
+    <div class="alert alert-info">
+      <strong>&#128274; Perlindungan Privasi:</strong>
+      Halaman ini hanya menampilkan informasi jadwal yang aman dipublikasikan.
+      Nama pasien, nomor rekam medis, dan diagnosis <strong>tidak ditampilkan</strong> di halaman publik.
+      Pasien dapat melihat detail jadwalnya sendiri melalui halaman
+      <a href="/cek-jadwal.html">Cek Jadwal Saya</a> menggunakan kode akses pribadi.
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <img src="/img/logo.svg" alt="Logo" class="footer-logo">
+        <div>
+          <strong>RS Sehat Sentosa</strong>
+          <p>Prototipe Akademik - UAS Rekayasa Perangkat Lunak</p>
+        </div>
+      </div>
+      <div class="footer-meta">
+        <p>&copy; 2024 Sistem Informasi Jadwal Operasi Pasien</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/js/common.js"></script>
+  <script src="/js/jadwal.js"></script>
+</body>
+</html>
